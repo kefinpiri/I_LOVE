@@ -1,4 +1,4 @@
-```html
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -21,6 +21,8 @@
 
         canvas {
             display: block;
+            width: 100vw;
+            height: 100vh;
         }
     </style>
 </head>
@@ -34,15 +36,34 @@
         const canvas = document.getElementById("canvas");
         const ctx = canvas.getContext("2d");
 
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+
+        resizeCanvas();
 
         const texts = [];
         const phrase = "I Love You";
 
-        // =================================
+        // ==============================
+        // RESPONSIVE SIZE
+        // ==============================
+
+        const isMobile = window.innerWidth < 768;
+
+        // LOVE LEBIH KECIL
+        const heartSize = isMobile ? 9 : 12;
+
+        // FONT RESPONSIVE
+        const fontSize = isMobile ? 10 : 12;
+
+        // GERAK RESPONSIVE
+        const radius = isMobile ? 2 : 3;
+
+        // ==============================
         // MEMBUAT BENTUK LOVE
-        // =================================
+        // ==============================
 
         for (let t = 0; t < Math.PI * 2; t += 0.06) {
 
@@ -54,9 +75,8 @@
                 - 2 * Math.cos(3 * t)
                 - Math.cos(4 * t);
 
-            // UKURAN LOVE DIPERKECIL
-            x *= 14;
-            y *= 14;
+            x *= heartSize;
+            y *= heartSize;
 
             texts.push({
                 baseX: x,
@@ -66,9 +86,9 @@
 
         }
 
-        // =================================
+        // ==============================
         // ANIMASI
-        // =================================
+        // ==============================
 
         function animate() {
 
@@ -80,17 +100,14 @@
 
             texts.forEach((p) => {
 
-                // GERAK MELINGKAR
                 p.angle += 0.03;
 
-                // RADIUS PUTARAN
-                let radius = 4;
+                let offsetX =
+                    Math.cos(p.angle) * radius;
 
-                // TEKS BERPUTAR
-                let offsetX = Math.cos(p.angle) * radius;
-                let offsetY = Math.sin(p.angle) * radius;
+                let offsetY =
+                    Math.sin(p.angle) * radius;
 
-                // POSISI LOVE TETAP
                 let x = p.baseX + offsetX;
                 let y = p.baseY + offsetY;
 
@@ -103,10 +120,10 @@
 
                 // GLOW
                 ctx.shadowColor = "#ff9ac2";
-                ctx.shadowBlur = 15;
+                ctx.shadowBlur = 12;
 
-                // UKURAN TEKS DIPERKECIL
-                ctx.font = "bold 14px Arial";
+                // FONT RESPONSIVE
+                ctx.font = `bold ${fontSize}px Arial`;
 
                 ctx.fillText(phrase, 0, 0);
 
@@ -122,10 +139,7 @@
         animate();
 
         window.addEventListener("resize", () => {
-
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-
+            resizeCanvas();
         });
 
     </script>
@@ -133,4 +147,3 @@
 </body>
 
 </html>
-```
