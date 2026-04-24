@@ -1,4 +1,4 @@
-```html id="heartCircleMove"
+```html
 <!DOCTYPE html>
 <html lang="en">
 
@@ -54,8 +54,9 @@
                 - 2 * Math.cos(3 * t)
                 - Math.cos(4 * t);
 
-            x *= 20;
-            y *= 20;
+            // UKURAN LOVE DIPERKECIL
+            x *= 14;
+            y *= 14;
 
             texts.push({
                 baseX: x,
@@ -83,9 +84,9 @@
                 p.angle += 0.03;
 
                 // RADIUS PUTARAN
-                let radius = 6;
+                let radius = 4;
 
-                // TEKS BERPUTAR KELILING
+                // TEKS BERPUTAR
                 let offsetX = Math.cos(p.angle) * radius;
                 let offsetY = Math.sin(p.angle) * radius;
 
@@ -97,15 +98,15 @@
 
                 ctx.translate(x, y);
 
-                // WARNA TETAP
+                // WARNA
                 ctx.fillStyle = "#ff9ac2";
 
-                // GLOW TETAP
+                // GLOW
                 ctx.shadowColor = "#ff9ac2";
                 ctx.shadowBlur = 15;
 
-                // FONT TETAP
-                ctx.font = "bold 18px Arial";
+                // UKURAN TEKS DIPERKECIL
+                ctx.font = "bold 14px Arial";
 
                 ctx.fillText(phrase, 0, 0);
 
